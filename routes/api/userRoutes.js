@@ -3,4 +3,5 @@ const router = require('express').Router();
 
 router.route('/');
 
+//NOTE: TRIM USERNAME WHEN INPUT AND CREATED
 module.exports = router;
