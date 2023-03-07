@@ -22,7 +22,9 @@ module.exports = {
 
     },
     updateUser(req,res) {
-
+        User.findOneAndUpdate({ _id: req.params.userId }, { $set: { username: req.body.username } })
+            .then((user) => res.json(user))
+            .catch((err) => res.status(500).json(err))
     },
     deleteUser(req,res) {
         User.findOneAndDelete({ _id: req.params.userId })

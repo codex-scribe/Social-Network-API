@@ -53,6 +53,29 @@ module.exports = {
     }, 
 
     updateThought(req,res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $set: { "thoughtText": req.body.thoughtText } })
+            .then((thought) => 
+                !thought
+                ? res.status(404).json({ message: 'Thought not found'})
+                : res.status(200).json({ message: 'Success!!'})
+                )
+            .catch((err) => res.status(500).json(err))
+    },
+
+    createRxn(req,res) {
+        Thought.findOneAndUpdate( { _id: req.params.thoughtId }, { $addtoSet: {
+            reactions: req.body.reactionBody, username: req.body.username
+        }})
+            .then((thought) => 
+            !thought
+                ? res.status(404).json({ message: 'Thought not found'})
+                : res.status(200).json({ message: 'Success!!'})
+                )
+            .catch((err) => res.status(500).json(err)
+            )
+    },
+
+    deleteRxn(req,res) {
 
     }
 }
