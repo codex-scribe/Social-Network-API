@@ -22,8 +22,12 @@ module.exports = {
 
     },
     updateUser(req,res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $set: { username: req.body.username } })
-            .then((user) => res.json(user))
+        
+        User.findOneAndUpdate({ _id: req.params.userId }, { $set: 
+            req.body }, {new: true})
+            .then((user) => {
+                console.log(user);
+                user ? res.json(user) : res.status(404).json({ message: 'Error 404'})})
             .catch((err) => res.status(500).json(err))
     },
     deleteUser(req,res) {
